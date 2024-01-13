@@ -1,13 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
     let container = document.querySelector("#grid-container")
+    let gridSizeInput = document.querySelector(".grid-placeholder")
 
+    function createGrid(size){
 
-//This loop creates the 16*16 grid which is also crated due to FLEXBOX in CSS
-    for(let i = 0; i < 16*16; i++){
-        let gridDiv = document.createElement("div")
-        gridDiv.classList.add("gridItem")
-        container.appendChild(gridDiv)
+        container.innerHTML = ""
+
+        let pixelSize = container.clientWidth / size
+
+        for(let i = 0; i < size * size; i++){
+            let gridDiv = document.createElement("div")
+            gridDiv.classList.add("gridItem")
+            gridDiv.style.width = pixelSize + "px"
+            gridDiv.style.height = pixelSize + "px"
+            container.appendChild(gridDiv)
+        }
     }
+
+
+    function changeGrid(){
+        let newSize = parseInt(gridSizeInput.value)
+        if(isNaN(newSize) || newSize < 2 || newSize > 100){
+            alert("Enter Valid Number Between 2-100 !")
+            return
+        }
+        createGrid(newSize)
+    }
+
+    createGrid(16)
+
+    let submitButton = document.querySelector(".select-grid");
+    submitButton.addEventListener("click", changeGrid);
+
 
 
     // Black Button which selects the black color and adds the hover option
